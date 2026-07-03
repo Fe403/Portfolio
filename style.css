@@ -1,0 +1,1073 @@
+/* =========================================
+   Variáveis CSS e Temas (Dark/Light Mode) 
+   ========================================= */
+:root {
+  /* Estas são as cores padrão da página (Tema Escuro) */
+  --bg-primary: #000000; /* Fundo principal da página */
+  --bg-secondary: #0a0a0a; /* Fundo de áreas de destaque (ex: Hero section) */
+  --bg-card: #111111; /* Fundo dos cartões (projetos, tecnologias) */
+  --text-primary: #ffffff; /* Cor do texto principal */
+  --text-secondary: #a1a1aa; /* Cor do texto secundário (cinza) */
+  --border-color: #27272a; /* Cor das bordas das caixas e divisórias */
+  --accent: #ffffff; /* Cor de destaque */
+  --accent-hover: #e4e4e7; /* Cor de destaque ao passar o mouse */
+  --btn-bg: #ffffff; /* Fundo dos botões primários */
+  --btn-text: #000000; /* Texto dos botões primários */
+  --btn-outline: transparent; /* Fundo de botões secundários */
+  --badge-bg: rgba(255, 255, 255, 0.1); /* Fundo das "etiquetas" (badges) */
+  --badge-text: #e4e4e7; /* Texto das etiquetas */
+  --input-bg: #18181b; /* Fundo dos campos do formulário */
+  --color-warning: #fbbf24; /* Cor amarela para ícones específicos */
+  --color-heart: #ef4444; /* Cor vermelha para o coração no footer */
+}
+
+/* Quando o tema for alterado para 'light' no HTML, estas variáveis substituem as de cima */
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f4f4f5;
+  --bg-card: #ffffff;
+  --text-primary: #09090b;
+  --text-secondary: #52525b;
+  --border-color: #e4e4e7;
+  --accent: #000000;
+  --accent-hover: #27272a;
+  --btn-bg: #000000;
+  --btn-text: #ffffff;
+  --btn-outline: #e4e4e7;
+  --badge-bg: rgba(0, 0, 0, 0.05);
+  --badge-text: #3f3f46;
+  --input-bg: #f4f4f5;
+  --color-warning: #fbbf24;
+  --color-heart: #ef4444;
+}
+
+/* =========================================
+   Reset e Estilos Base 
+   ========================================= */
+/* O asterisco (*) aplica regras para todos os elementos da página */
+* {
+  margin: 0; /* Remove margens padrão do navegador */
+  padding: 0; /* Remove preenchimentos padrão */
+  box-sizing: border-box; /* Garante que bordas e preenchimentos não aumentem o tamanho total do elemento */
+  font-family: "Inter", sans-serif; /* Define a fonte padrão de todo o site */
+}
+
+/* Configuração de rolagem suave ao clicar em links da âncora (ex: ir para #sobre) */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Estilos do corpo (body) da página */
+body {
+  background-color: var(
+    --bg-primary
+  ); /* Aplica a cor de fundo com base no tema */
+  color: var(--text-primary); /* Aplica a cor do texto com base no tema */
+  line-height: 1.6; /* Aumenta o espaçamento entre linhas para melhor leitura */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease; /* Animação suave ao trocar de tema (claro/escuro) */
+  overflow-x: hidden; /* Esconde qualquer elemento que vaze para os lados (barra de rolagem horizontal) */
+}
+
+/* Remove o sublinhado padrão dos links e herda a cor do texto onde está inserido */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remove as "bolinhas" padrão das listas (ul) */
+ul {
+  list-style: none;
+}
+
+/* Garante que imagens não ultrapassem o tamanho de seus contêineres e mantenham proporção */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Container centralizador usado em várias seções para limitar a largura máxima do site */
+.container {
+  max-width: 1200px;
+  margin: 0 auto; /* Centraliza o elemento horizontalmente */
+  padding: 0 2rem; /* Espaçamento interno nas laterais */
+}
+
+/* Espaçamento padrão para cada seção (topo e base) */
+section {
+  padding: 100px 0;
+}
+
+/* Estilos dos títulos principais de cada seção (Ex: "Sobre Mim", "Projetos") */
+.section-title {
+  text-align: center; /* Centraliza o texto */
+  font-size: 2.5rem; /* Tamanho da fonte */
+  font-weight: 700; /* Deixa a fonte em negrito */
+  margin-bottom: 1rem;
+}
+
+/* Estilos dos subtítulos abaixo do título principal */
+.section-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 4rem;
+  font-size: 1.1rem;
+}
+
+/* Aquele tracinho visual decorativo abaixo de alguns títulos */
+.section-divider {
+  width: 40px;
+  height: 3px;
+  background: var(--text-primary);
+  margin: 0 auto 4rem; /* Centraliza e empurra os itens de baixo */
+}
+
+/* =========================================
+   Navegação (Navbar) 
+   ========================================= */
+/* O menu fixo no topo da tela */
+header {
+  position: fixed; /* Fixa o menu para rolar junto com a tela */
+  top: 16px;
+  left: 50%;
+  transform: translateX(
+    -50%
+  ); /* Técnica para centralizar elementos fixed absolutos */
+  width: calc(100% - 32px); /* Largura total menos as bordas laterais */
+  max-width: 1100px;
+  z-index: 1000; /* Garante que o menu fique por cima de tudo */
+
+  /* Efeito de vidro borrado (glassmorphism) */
+  background-color: rgba(17, 17, 17, 0.65);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+
+  border: 1px solid var(--border-color); /* Bordinha do menu */
+  border-radius: 50px; /* Deixa o menu em formato de pílula (arredondado) */
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08); /* Sombra suave sob o menu */
+  transition: all 0.3s ease; /* Animação para quando rolar a página e o menu mudar de forma */
+}
+
+/* Ajuste da cor do menu quando o tema for claro */
+[data-theme="light"] header {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Classe ativada via JavaScript quando o usuário rola a página (scroll) */
+header.scrolled {
+  top: 10px; /* Sobe um pouquinho o menu */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18); /* Aumenta a sombra */
+  border-color: var(--text-secondary); /* Muda a cor da borda */
+}
+
+/* Contêiner interno do menu que alinha a Logo e os Links */
+.nav-container {
+  display: flex; /* Flexbox para colocar um ao lado do outro */
+  justify-content: space-between; /* Espalha os itens (Logo esquerda, Menu meio, Botões direita) */
+  align-items: center; /* Centraliza verticalmente */
+  height: 64px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Estilo do Logo (Texto "Fe.") */
+.logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -1px; /* Junta um pouco as letras */
+}
+
+/* Contêiner da lista de links (Início, Sobre, etc) */
+.nav-links {
+  display: flex;
+  gap: 0.25rem; /* Espaço entre os links */
+  align-items: center;
+}
+
+/* Estilo de cada link do menu */
+.nav-links a {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+  position: relative;
+  padding: 0.5rem 0.9rem;
+  border-radius: 30px; /* Bordas arredondadas ao passar o mouse */
+}
+
+/* Esconde qualquer pseudoelemento de linha residual */
+.nav-links a::after {
+  display: none;
+}
+
+/* Efeito ao passar o mouse em um link do menu */
+.nav-links a:hover {
+  color: var(--text-primary);
+  background-color: var(--badge-bg); /* Fundo sutil */
+}
+
+/* Estilo do link quando o usuário está na respectiva seção (ativado por JS) */
+.nav-links a.active {
+  color: var(--btn-text);
+  background-color: var(--btn-bg); /* Fundo sólido marcando a página atual */
+}
+
+/* Botões do lado direito (Tema e Menu mobile) */
+.nav-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Botão de alternar entre modo claro e escuro */
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  cursor: pointer; /* Muda o mouse para a "mãozinha" */
+  padding: 0.5rem;
+  border-radius: 50%; /* Faz o fundo do hover ser perfeitamente redondo */
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  background-color: var(--badge-bg);
+}
+
+/* Botão de menu hamburguer (Só aparece no celular - display:none por padrão) */
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* =========================================
+   Seção Principal (Hero - Primeira tela) 
+   ========================================= */
+.hero {
+  min-height: 100vh; /* Ocupa no mínimo 100% da altura da tela */
+  display: flex;
+  align-items: center; /* Centraliza o conteúdo verticalmente */
+  padding-top: 110px; /* Empurra pra baixo para não ficar debaixo do menu fixo */
+
+  /* Cria um degradê radial (circular) no fundo */
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--bg-secondary) 0%,
+    var(--bg-primary) 100%
+  );
+}
+
+/* Grid divide a tela inicial em duas colunas: texto e imagem */
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Duas colunas de tamanhos iguais */
+  gap: 4rem; /* Espaço entre texto e imagem */
+  align-items: center;
+}
+
+/* O pequeno selo escrito "Olá, eu sou" */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--badge-bg);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+/* Cor do ícone da mãozinha */
+.hero-badge-emoji {
+  color: var(--color-warning);
+}
+
+/* Nome principal */
+.hero-text h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  letter-spacing: -2px;
+}
+
+/* Estiliza o apelido "Fe" com cor diferente */
+.hero-text h1 span {
+  color: var(--text-secondary);
+}
+
+/* Subtítulo sobre o que você faz */
+.hero-text h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* Parágrafo de descrição */
+.hero-text p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  max-width: 90%;
+}
+
+/* Botões da tela inicial */
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Estilo geral dos botões */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s; /* Deixa efeitos como hover mais suaves */
+  cursor: pointer;
+}
+
+/* Botão que chama a atenção (Ver projetos) */
+.btn-primary {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: 1px solid var(--btn-bg);
+}
+
+/* Efeito Hover: O botão sobe um pouquinho (translateY) */
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* Botão com fundo transparente e borda (Download CV) */
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-outline:hover {
+  border-color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+/* Onde a imagem fica */
+.hero-image {
+  position: relative; /* Permite que o selo </> flutue com absolute com base nela */
+}
+
+/* Imagem da primeira tela */
+.hero-image img {
+  border-radius: 24px;
+  width: 100%;
+  object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
+}
+
+/* O ícone de código "</>" flutuante na imagem */
+.floating-badge {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: float 3s ease-in-out infinite; /* Chama a animação de flutuação */
+}
+
+/* Define o movimento contínuo de subir e descer do ícone */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* =========================================
+   Seção: Sobre Mim 
+   ========================================= */
+.sobre-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Duas colunas */
+  gap: 4rem;
+  align-items: center;
+}
+
+.sobre-image {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden; /* Esconde o que vazar das bordas arredondadas */
+  height: 450px;
+}
+
+.sobre-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Selinho com fundo transparente/vidro (glassmorphism) na foto de setup */
+.sobre-image-badge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.sobre-text h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.sobre-text p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* Título de interesses (Pequeno com letras maiúsculas e separadas) */
+.interesses-titulo {
+  margin-top: 2rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+/* Grade que segura seus interesses (Grid de 2 colunas) */
+.interesses-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Estilo individual de cada caixa de interesse */
+.interesse-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* =========================================
+   Seção: Tecnologias 
+   ========================================= */
+.tech-grid {
+  display: grid;
+  /* Grid responsivo: cria quantas colunas couberem, mas cada uma tem no mínimo 250px */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Estilo do cartão de cada linguagem (ex: HTML, CSS) */
+.tech-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.5rem;
+  position: relative; /* Para colocar o nível ("Sólido", "Aprendendo") via absolute */
+  transition:
+    transform 0.3s,
+    border-color 0.3s; /* Anima a subidinha e a mudança da borda */
+}
+
+.tech-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--text-secondary);
+}
+
+.tech-svg {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  display: block;
+}
+
+.tech-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.tech-card p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+/* Ajusta o tamanho da fonte dos ícones do Devicon */
+.tech-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+  color: var(--text-primary);
+}
+
+/* Aquele selo dizendo "Sólido" ou "Aprendendo" posicionado no canto do card */
+.tech-level {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+/* =========================================
+   Seção: Projetos 
+   ========================================= */
+.projects-grid {
+  display: grid;
+  /* Grid responsivo: cada card terá mínimo de 350px */
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column; /* Permite esticar o conteúdo para todos os cards ficarem do mesmo tamanho */
+  transition: transform 0.3s;
+}
+
+.project-card:hover {
+  transform: translateY(-5px); /* Efeito de elevação */
+}
+
+/* A foto de preview do projeto */
+.project-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Conteúdo de texto do cartão de projeto */
+.project-content {
+  padding: 2rem;
+  flex-grow: 1; /* Ocupa todo o espaço restante do card, empurrando os botões pro fim */
+  display: flex;
+  flex-direction: column;
+}
+
+.project-content h4 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.project-content p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1; /* Empurra a parte de baixo (tags e link) pra base do cartão */
+}
+
+/* Áreas com as tags HTML, CSS... */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap; /* Quebra linha se tiver muitas tags */
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.project-tags span {
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Botões do projeto (Link GitHub) */
+.project-links .btn {
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.btn-github {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+  border: 1px solid var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-github:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+
+/* Se por acaso você for adicionar um botão de link de site ao vivo (Live Demo) */
+.btn-demo {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-demo:hover {
+  border-color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   Seção: Experiência (Linha do Tempo) 
+   ========================================= */
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+/* Desenha a linha vertical no meio da linha do tempo */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%; /* Posiciona no meio certinho */
+  width: 2px;
+  background-color: var(--border-color);
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 4rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* A "bolinha" redonda em cima da linha central com o ícone dentro */
+.timeline-icon {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2; /* Fica acima da linha vertical */
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+/* A caixa de texto de cada experiência na linha do tempo */
+.timeline-content {
+  width: 45%; /* Menos de 50% para caber a linha no meio */
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+/* Joga itens ímpares para a esquerda */
+.timeline-item:nth-child(odd) .timeline-content {
+  margin-right: 55%;
+}
+
+/* Joga itens pares para a direita */
+.timeline-item:nth-child(even) .timeline-content {
+  margin-left: 55%;
+}
+
+.timeline-year {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.timeline-content h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-content h5 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.timeline-content p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+/* =========================================
+   Seção: Estatísticas (Projetos, Horas...)
+   ========================================= */
+.stats {
+  background-color: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 4rem 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 colunas distribuídas igualmente */
+  gap: 2rem;
+  text-align: center;
+}
+
+.stat-icon {
+  font-size: 2rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  display: inline-flex;
+  padding: 1rem;
+  background-color: var(--badge-bg);
+  border-radius: 16px;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* =========================================
+   Seção: Contato 
+   ========================================= */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Divide em dois: Informações | Formulário */
+  gap: 4rem;
+}
+
+.contact-info h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.contact-info p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Espaço entre os botões de contato (LinkedIn, Zap, etc) */
+}
+
+/* Caixinha estilo botão de cada método de contato */
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  transition: background-color 0.3s;
+}
+
+.contact-card:hover {
+  background-color: var(--border-color); /* Fica mais claro ao passar o mouse */
+}
+
+.contact-card i {
+  font-size: 1.5rem; /* Aumenta o tamanho dos ícones na lateral */
+}
+
+.contact-card-text strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.contact-card-text span {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* Design do Quadrado do Formulário de Contato */
+.contact-form {
+  background-color: var(--bg-card);
+  padding: 3rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+}
+
+.contact-form h3 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Agrupador de campos (label + input) */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Design visual dos inputs (Nome e Email) e da Textarea (Mensagem) */
+.form-control {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  outline: none; /* Remove aquela borda grossa padrão do navegador */
+  transition: border-color 0.3s;
+}
+
+/* Efeito ao clicar para digitar */
+.form-control:focus {
+  border-color: var(--text-secondary);
+}
+
+/* O campo de texto grande (Mensagem) - Permite apenas redimensionar para baixo */
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+  font-family: "Inter", sans-serif; /* Garante que mantém a mesma fonte */
+}
+
+/* Botão de enviar */
+.btn-submit {
+  width: 100%; /* Ocupa 100% da largura da caixinha */
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+/* =========================================
+   Rodapé (Footer) 
+   ========================================= */
+footer {
+  text-align: center;
+  padding: 3rem 0;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.footer-credit {
+  margin-top: 0.5rem;
+}
+
+.footer-heart {
+  color: var(--color-heart); /* Aplica a cor vermelha no ícone de coração */
+}
+
+/* =========================================
+   Animações de Scroll (Reveal) 
+   ========================================= */
+/* Tudo que tiver a classe 'reveal' no HTML fica invisível (opacity:0) e deslocado para baixo */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease; /* Duração de quase um segundo pro elemento surgir */
+}
+
+/* A classe 'active' é ativada via JavaScript quando o item aparece na tela, restaurando visão normal */
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================
+   Responsividade (Media Queries) 
+   ========================================= */
+
+/* Tablets em diante (Telas menores que 992px) */
+@media (max-width: 992px) {
+  .hero-text h1 {
+    font-size: 3rem;
+  } /* Diminui título */
+  .sobre-grid {
+    grid-template-columns: 1fr;
+  } /* Transforma grade de duas colunas em 1 coluna só */
+  .sobre-image {
+    height: 320px;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Na timeline, a linha vai pro lado em vez de ficar no meio */
+  .timeline::before {
+    left: 30px;
+  }
+  .timeline-icon {
+    left: 30px;
+  }
+  .timeline-content {
+    width: calc(100% - 80px);
+  }
+  /* Desfaz o zig-zag da timeline (esquerda/direita) - joga tudo pra um lado só */
+  .timeline-item:nth-child(odd) .timeline-content,
+  .timeline-item:nth-child(even) .timeline-content {
+    margin-left: 80px;
+    margin-right: 0;
+  }
+}
+
+/* Smartphones médios/grandes (Telas menores que 768px) */
+@media (max-width: 768px) {
+  /* Transforma o menu de navegação em um menu flutuante e fechável */
+  .nav-links {
+    position: fixed;
+    top: 90px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+    height: auto;
+    max-height: 0; /* Escondido por padrão */
+    overflow: hidden;
+    opacity: 0;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    flex-direction: column; /* Coloca os links um embaixo do outro */
+    justify-content: center;
+    align-items: stretch;
+    gap: 0.25rem;
+    padding: 0 1rem;
+    transition:
+      max-height 0.3s ease,
+      opacity 0.3s ease,
+      padding 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Menu se abre com a classe active aplicada via JS ao clicar no hambúrguer */
+  .nav-links.active {
+    max-height: 400px;
+    opacity: 1;
+    padding: 1rem;
+  }
+
+  .nav-links a {
+    text-align: center;
+    padding: 0.75rem;
+  }
+
+  .menu-btn {
+    display: block;
+  } /* Mostra o botão hambúrguer do menu no mobile */
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .hero-badge {
+    margin: 0 auto 1.5rem auto;
+  }
+  .hero-text p {
+    margin: 0 auto 2.5rem auto;
+  }
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  /* Joga a imagem pra cima do texto via grid-row */
+  .hero-image {
+    grid-row: 1;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  /* Modifica as estatísticas para ocuparem duas colunas */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .interesses-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Smartphones pequenos (Telas menores que 480px) */
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  } /* Uma coluna só */
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
+  .project-links {
+    grid-template-columns: 1fr;
+  }
+  .contact-form {
+    padding: 1.5rem;
+  } /* Diminui os espaçamentos internos para não ficar espremido */
+}
