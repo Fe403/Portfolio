@@ -95,7 +95,6 @@ img {
 }
 
 /* Container centralizador usado em várias seções para limitar a largura máxima do site */
-/* Container centralizador usado em várias seções para limitar a largura máxima do site */
 .container {
   max-width: 1200px;
   margin: 0 auto; /* Centraliza o elemento horizontalmente */
@@ -105,8 +104,8 @@ img {
 
 /* Espaçamento padrão para cada seção (topo e base) */
 section {
-  padding-top: 170px; /* Aplica apenas no topo */
-  padding-bottom: 170px; /* Aplica apenas na base */
+  padding-top: 100px; /* Aplica apenas no topo */
+  padding-bottom: 100px; /* Aplica apenas na base */
   scroll-margin-top: 100px; /* Evita que a navbar fixa cubra o topo da seção ao clicar num link do menu */
 }
 
@@ -386,9 +385,33 @@ header.scrolled {
 
 /* Imagem da primeira tela */
 .hero-image img {
-  border-radius: 24px;
-  width: 100%;
-  object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
+   width: 500px;
+    height: 700px;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px;
+    overflow: hidden; /* Faz a imagem preencher o espaço sem distorcer */
+}
+
+/* =========================================
+   Troca de Imagens da Primeira Tela (Hero)
+   ========================================= */
+
+/* 1. Esconde a imagem do tema claro por padrão (site começa dark) */
+.img-tema-claro {
+  display: none;
+}
+
+/* 2. Quando o HTML mudar para o tema claro, esconde a imagem escura */
+html[data-theme="light"] .img-tema-escuro {
+  display: none;
+}
+
+/* 3. E exibe a imagem clara */
+html[data-theme="light"] .img-tema-claro {
+  display: block; 
 }
 
 /* O ícone de código "</>" flutuante na imagem */
@@ -1093,3 +1116,36 @@ footer {
     padding: 1.5rem;
   } /* Diminui os espaçamentos internos para não ficar espremido */
 }
+
+/* =========================================
+   Alternância de Imagens por Tema (Dark/Light)
+   ========================================= */
+
+/**
+ * Controla a visibilidade das imagens com base no tema ativo.
+ * Quando data-theme não é "light" → mostra escuro, esconde claro
+ * Quando data-theme="light" → esconde escuro, mostra claro
+ */
+
+/* Imagem para tema ESCURO - visível por padrão */
+.img-tema-escuro {
+  display: block !important;
+}
+
+/* Imagem para tema CLARO - oculta por padrão */
+.img-tema-claro {
+  display: none !important;
+}
+
+/* Quando o tema for alterado para CLARO via JavaScript */
+html[data-theme="light"] .img-tema-escuro {
+  display: none !important; /* Esconde a imagem do tema escuro */
+}
+
+html[data-theme="light"] .img-tema-claro {
+  display: block !important; /* Mostra a imagem do tema claro */
+}
+
+/* =========================================
+   FIM: Alternância de Imagens
+   ========================================= */

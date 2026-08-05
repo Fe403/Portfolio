@@ -1,25 +1,69 @@
 // ===== DARK/LIGHT MODE =====
+/**
+ * Sistema de alternância de tema (Escuro/Claro)
+ * 
+ * Funcionamento:
+ * 1. O atributo data-theme="dark" ou data-theme="light" é adicionado à tag <html>
+ * 2. O CSS detecta essa mudança via seletor: html[data-theme="light"]
+ * 3. As imagens (.img-tema-escuro e .img-tema-claro) são mostradas/ocultadas automaticamente
+ * 4. Tudo funciona sincronizado sem necessidade de JS adicional para as imagens
+ */
+
+// Obtém o botão de alternância de tema
 const themeToggle = document.getElementById('theme-toggle');
+
+// Obtém a tag HTML (raiz do documento)
 const html = document.documentElement;
+
+// Obtém o ícone dentro do botão (para atualizar sol/lua)
 const icon = themeToggle.querySelector('i');
 
+// ===== CARREGAR TEMA SALVO =====
+/**
+ * Ao carregar a página:
+ * 1. Verifica se há um tema salvo no localStorage
+ * 2. Se não houver, usa 'dark' como padrão
+ * 3. Aplica o tema à tag HTML
+ * 4. Atualiza o ícone do botão
+ */
 const savedTheme = localStorage.getItem('theme') || 'dark';
 html.setAttribute('data-theme', savedTheme);
 updateThemeIcon(savedTheme);
 
+/**
+ * Ao clicar no botão de tema:
+ * 1. Obtém o tema atual
+ * 2. Calcula o novo tema (inverte: dark → light, light → dark)
+ * 3. Atualiza o atributo data-theme na tag HTML
+ *    → CSS detecta a mudança e alterna as imagens automaticamente!
+ * 4. Salva a preferência do usuário no localStorage
+ * 5. Atualiza o ícone (sol ↔ lua)
+ */
 themeToggle.addEventListener('click', () => {
     const currentTheme = html.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    // Altera o atributo data-theme
+    // O CSS vai detectar isso e mostrar/esconder as imagens
     html.setAttribute('data-theme', newTheme);
+    
+    // Salva a preferência para próximas visitas
     localStorage.setItem('theme', newTheme);
+    
+    // Atualiza o ícone do botão
     updateThemeIcon(newTheme);
 });
 
+/**
+ * Atualiza o ícone do botão de tema
+ * - Modo escuro → mostra ícone de SOL (clique para ficar claro)
+ * - Modo claro → mostra ícone de LUA (clique para ficar escuro)
+ */
 function updateThemeIcon(theme) {
     if (theme === 'dark') {
-        icon.className = 'ph ph-sun';
+        icon.className = 'ph ph-sun';    // Sol = está escuro, clique para claro
     } else {
-        icon.className = 'ph ph-moon';
+        icon.className = 'ph ph-moon';   // Lua = está claro, clique para escuro
     }
 }
 
