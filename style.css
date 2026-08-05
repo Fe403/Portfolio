@@ -385,14 +385,18 @@ header.scrolled {
 
 /* Imagem da primeira tela */
 .hero-image img {
-   width: 500px;
-    height: 700px;
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 5 / 7; /* Mantém a proporção 500x700 em qualquer tamanho de tela */
+    height: auto;
+    margin: 0 auto;
     background: #000;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 24px;
-    overflow: hidden; /* Faz a imagem preencher o espaço sem distorcer */
+    overflow: hidden;
+    object-fit: cover; /* Preenche o espaço sem distorcer */
 }
 
 /* =========================================
@@ -1115,6 +1119,90 @@ footer {
   .contact-form {
     padding: 1.5rem;
   } /* Diminui os espaçamentos internos para não ficar espremido */
+
+  .container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  section {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .section-subtitle {
+    margin-bottom: 3rem;
+    font-size: 1rem;
+  }
+
+  .hero-text h2 {
+    font-size: 1.05rem;
+  }
+
+  .hero-text p {
+    max-width: 100%;
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+  }
+
+  .hero-image img {
+    max-width: 280px;
+  }
+
+  .floating-badge {
+    width: 60px;
+    height: 60px;
+    font-size: 1.1rem;
+    bottom: -12px;
+    right: -12px;
+  }
+
+  .tech-grid,
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-content {
+    padding: 1.25rem;
+  }
+
+  .contact-card {
+    padding: 1rem;
+  }
+
+  .nav-container {
+    padding: 0 1rem;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+}
+
+/* Telas muito pequenas (Telas menores que 360px) */
+@media (max-width: 360px) {
+  .hero-text h1 {
+    font-size: 2.1rem;
+  }
+  .section-title {
+    font-size: 1.5rem;
+  }
+  header {
+    width: calc(100% - 16px);
+    top: 8px;
+  }
 }
 
 /* =========================================
